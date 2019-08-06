@@ -36,7 +36,7 @@ server.get('/api/users', (req, res) => {
         })
         .catch(() => {
             res.status(500).json({
-                errorMessage: 'The users information could not be retrieved.',
+                errorMessage: 'Holy Flying Duck Batman the information could not be retrieved.',
             });
         });
 });
@@ -49,12 +49,12 @@ server.get('/api/users/:id', (req, res) => {
             } else {
                 res
                     .status(404)
-                    .json({ message: 'The user with the specified ID does not exist.' });
+                    .json({ message: 'Yikes The user with the specified ID does not exist.' });
             }
         })
         .catch(() => {
             res
                 .status(500)
-                .json({ errorMessage: 'The user information could not be retrieved.' });
+                .json({ errorMessage: 'Come on man the user information could not be retrieved.' });
         });
 });
