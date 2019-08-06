@@ -36,7 +36,7 @@ server.get('/api/users', (req, res) => {
         })
         .catch(() => {
             res.status(500).json({
-                errorMessage: 'Holy Flying Duck Batman the information could not be retrieved.',
+                errorMessage: 'Holy Flying Ducks Batman the information could not be retrieved.',
             });
         });
 });
@@ -58,3 +58,81 @@ server.get('/api/users/:id', (req, res) => {
                 .json({ errorMessage: 'Come on man the user information could not be retrieved.' });
         });
 });
+
+server.delete('/api/users/:id', (req, res) => {
+    Users.remove(req.params.id)
+        .then(count => {
+            if (count && count > 0) {
+                res.status(200).json({
+                    message: 'the user was deleted.',
+                });
+            } else {
+                res
+                    .status(404)
+                    .json({ message: 'The user with the specified ID does not exist.' });
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ errorMessage: 'The user could not be removed' });
+        });
+});
+
+server.put('/api/users/:id', (req, res) => {
+    const { name, bio } = req.body;
+
+    if (!name || !bio) {
+        res
+            .status(400)
+            .json({ errorMessage: 'Whatup homeslice provide name and bio for the user.' });
+    } else {
+        Users.update(req.params.id, req.body)
+            .then(user => {
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res
+                        .status(404)
+                        .json({
+                            message: 'These are not the droids you are looking for!',
+                        });
+                }
+            })
+            .catch(() => {
+                res.status(500).json({
+                    errorMessage: 'The user information could not be modified.',
+                });
+            });
+    }
+});
+
+const port = 5000;
+server.listen(port, () => console.log(`\n*** API on port ${port} ***\n`));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const port = 5000;
+server.listen(port, () => console.log(`\n*** API on port ${port} ***\n`));
